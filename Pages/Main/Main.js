@@ -1,11 +1,24 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import {styles} from '../../Components/Style'
 
-const Main = () => {
+const Main = (props) => {
     return (
         <View>
-            <Text style={styles.textstyle}>MainPage</Text>
+            <TouchableOpacity
+                onPress={() => {
+                    props.navigation.navigate("PinMap") 
+                }}
+            >
+                <Text>PinMap</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                    props.navigation.navigate("PlanList") 
+                }}
+            >
+                <Text>PlanList</Text>
+            </TouchableOpacity>
         </View>
     );
 };

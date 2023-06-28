@@ -16,12 +16,13 @@ const screenOptionStyle = ({route}) =>
       },
       headerTintColor: "white",
       headerBackTitle: "Back",
+      headerShown: false
     });
 
 
 const HomeStackNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={screenOptionStyle}>
+    <Stack.Navigator screenOptions={screenOptionStyle} >
       <Stack.Screen name="Main" component={Main} />
       <Stack.Screen name="PinMap" component={PinMap} />
       <Stack.Screen name="PlanList" component={PlanList} />
