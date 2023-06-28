@@ -89,5 +89,31 @@ export const styles = StyleSheet.create({
     textstyle:{
         fontSize:20,
         color:'orange'
+    },
+    mainHeader: {
+      backgroundColor: '#5F7193',
+      width:Dimensions.get('window').width* 0.9,
+      // marginVertical: 10,
+      // marginHorizontal: 10,
+      height: Dimensions.get('window').height*0.1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingLeft: 20, 
+      padding: '5%',
+    },
+    logo: {
+      fontSize: 24,
+      textAlign: 'center',
+    },
+    mainHeadImg: {
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+    },
+    mainBody: {
+      backgroundColor: 'blue',
+      width: Dimensions.get('window').width* 0.9,
+      height: Dimensions.get('window').height,
     }
 })
