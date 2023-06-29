@@ -101,6 +101,7 @@ export const styles = StyleSheet.create({
       alignItems: 'center',
       paddingLeft: 20, 
       padding: '5%',
+      borderRadius: 15,
     },
     logo: {
       fontSize: 24,
@@ -112,8 +113,12 @@ export const styles = StyleSheet.create({
       borderRadius: '50%',
     },
     mainBody: {
-      backgroundColor: 'blue',
+      // backgroundColor: 'blue',
       width: Dimensions.get('window').width* 0.9,
-      height: Dimensions.get('window').height,
+      // height: Dimensions.get('window').height*0.68, // 이거 수정
+      height: 300,
+      marginTop: '6%',
+      marginBottom: '20%',
+      flexDirection: 'column'
     }
 })
