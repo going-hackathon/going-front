@@ -120,5 +120,16 @@ export const styles = StyleSheet.create({
       marginTop: '6%',
       marginBottom: '20%',
       flexDirection: 'column'
+    },
+    planList: {
+      width: Dimensions.get('window').width * 0.45,
+      height: Dimensions.get('window').height * 0.07,
+      backgroundColor: '#5F7193',
+      borderRadius: 8,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: '3%',
+      marginBottom: '15%',
     }
 })
