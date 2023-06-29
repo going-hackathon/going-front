@@ -90,9 +90,10 @@ const PinMap = (props) => {
     })();
   }, []);
   console.log(mapRegion);
+
   return (
       <View style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height}}>
-        <Text>여행별자리</Text>
+
         <BottomSheet
           ref={sheetRef}
           snapPoints={[Dimensions.get('window').height * 0.4, Dimensions.get('window').width, 0]}
