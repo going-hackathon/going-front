@@ -120,6 +120,7 @@ const SignUp = (props) => {
         setOkBirth(validateBirth(changeDate))
     }
 
+
     // 성별 핸들러
     const handleGenderChange = (gender) => {
         setGender(gender)
@@ -136,6 +137,7 @@ const SignUp = (props) => {
                 let todayData = new Date();
                 let today = todayData.toLocaleDateString()
 
+                
                 // DB 넣기
                 const docRef = await setDoc(doc(db, "User", id), {
                     u_date: today,
