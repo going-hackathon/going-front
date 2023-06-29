@@ -20,7 +20,6 @@ const screenOptionStyle = ({route}) =>
       },
       headerTintColor: "white",
       headerBackTitle: "Back",
-      headerShown: false
     });
 
 
