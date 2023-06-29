@@ -5,31 +5,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAvoidingView } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import axios from 'axios';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = (props) => {
     const [id, setID] = useState();
     const [pw, setPW] = useState();
     const [statusBarHeight, setStatusBarHeight] = useState(0);
-
-    useEffect(() => {
-        // console.log('all')
-        // axios.post(`${IP}/review/list`, null, {
-        //     params: {
-        //         // latitude: location.coords.latitude,
-        //         // longitude: location.coords.longitude,
-        //     }
-        // })
-        //     .then(function (res) {
-        //         console.log("all", res.data);
-        //         setAll(res.data)
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error)
-        //     })
-
-    }, [])
-
 
     const regist = () => {
         if (id != null && pw != null) {
@@ -44,14 +25,29 @@ const Login = (props) => {
         userAccountId: id,
         password: pw,
       }
-      console.log(temp);
+      // console.log(temp);
       axios.post('http://13.125.131.18:8080/api/users/login', temp)
-        .then((res) => {
-          console.log(res.data);
+        .then(async (res) => {
+          console.log(res.data.token);
+          await AsyncStorage.setItem('token', res.data.token, () => { //user_id변수로 hwije123 저장
+            console.log('저장');
+          })
         })
         .catch((err) => {
           console.log(err);
         })
+      // axios.post('http://13.125.131.18:8080/api/users/login', temp)
+      //   .then((res) => {
+      //     // console.log(res.data.token);
+      //     // AsyncStorage.setItem('token', res.data.token, () => { //user_id변수로 hwije123 저장
+      //       console.log('유저 id저장');
+      //     })
+      //     .catch((err) => {
+      //       // console.log(err);
+      //     });
+      // }
+        
+      
     }
 
     return (
