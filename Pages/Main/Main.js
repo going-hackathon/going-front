@@ -38,7 +38,7 @@ const list = [
         </View>
       </View>
       <View style={{ width: '100%', height: 328}}> 
-        <Image source={require('../../assets/icon.png')} alt="이미지" style={{ width: '100%', height: '100%', borderRadius: 8}} />
+        <Image source={{ uri: 'https://t1.daumcdn.net/cfile/tistory/99128B3E5AD978AF20'}} alt="이미지" style={{ width: '100%', height: '100%', borderRadius: 8}} />
       </View>
     </TouchableOpacity>
     )
@@ -57,13 +57,15 @@ const list = [
 
             <TouchableOpacity
                 onPress={() => {
-                    props.navigation.navigate("PinMap") 
+                    // props.navigation.navigate("PinMap") 
+                    props.navigation.navigate("PlanList") 
+
                 }}
                 style={styles.mainHeader}
             >
               <View style={{ flexDirection: 'row'}}>
                 <View style={{ height: '100%', width: '23%'}}>
-                  <Image style={styles.mainHeadImg} source={require('../../assets/icon.png')} alt="이미지" />
+                  <Image style={styles.mainHeadImg} source={{ uri: 'https://t1.daumcdn.net/cfile/tistory/99128B3E5AD978AF20'}} alt="이미지" />
                   {/* <Image style={{width, height}} source={{ url: ""}} source = {require('../../assec')} /> */}
                 </View>
                 <View style={{ marginLeft: 10}}>
