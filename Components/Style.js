@@ -89,8 +89,6 @@ export const styles = StyleSheet.create({
         height: 50,
     },
     
-
-
     // CreatePlan
     searchBar :{
         width: Dimensions.get('window').width * 0.9, 
@@ -213,10 +211,50 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     fontWeight: 'bold'
   },
-
-
-  
-
-
-
+    textstyle:{
+        fontSize:20,
+        color:'orange'
+    },
+    mainHeader: {
+      backgroundColor: '#5F7193',
+      width:Dimensions.get('window').width* 0.9,
+      // marginVertical: 10,
+      // marginHorizontal: 10,
+      height: Dimensions.get('window').height*0.1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingLeft: 20, 
+      padding: '5%',
+      borderRadius: 15,
+    },
+    logo: {
+      fontSize: 24,
+      textAlign: 'center',
+    },
+    mainHeadImg: {
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+    },
+    mainBody: {
+      // backgroundColor: 'blue',
+      width: Dimensions.get('window').width* 0.9,
+      // height: Dimensions.get('window').height*0.68, // 이거 수정
+      height: 300,
+      marginTop: '6%',
+      marginBottom: '20%',
+      flexDirection: 'column'
+    },
+    planList: {
+      width: Dimensions.get('window').width * 0.45,
+      height: Dimensions.get('window').height * 0.07,
+      backgroundColor: '#5F7193',
+      borderRadius: 8,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: '3%',
+      marginBottom: '15%',
+    }
 })
