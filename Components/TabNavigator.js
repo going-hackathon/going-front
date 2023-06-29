@@ -18,6 +18,7 @@ const TabNavigator = () => {
             
             screenOptions={({ route }) => ({
                 showLabel: false,
+                headerShown:false,
                 tabBarIcon: ({ focused }) => (
                     TabBarIcon(focused, route.name)
                 ),
