@@ -78,7 +78,7 @@ const PinMap = (props) => {
 
       let location = await Location.getCurrentPositionAsync({}); //현재 위치 가져오기
 
-      // setmapRegion({ //현재 위치 set
+      // setmapRegion({ // 현재 위치 set
       //   latitude: location.coords.latitude,
       //   longitude: location.coords.longitude,
       //   latitudeDelta: 0.5,
@@ -86,10 +86,11 @@ const PinMap = (props) => {
       // })
     })();
   }, []);
-  // console.log(mapRegion[0]);
+
+
   return (
       <View style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height}}>
-        <Text>여행별자리</Text>
+
         <BottomSheet
           ref={sheetRef}
           snapPoints={[Dimensions.get('window').height * 0.4, Dimensions.get('window').width, 0]}
