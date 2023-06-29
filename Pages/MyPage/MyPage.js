@@ -71,7 +71,7 @@ const MyPage = (props) => {
               </View>
               <TouchableOpacity
                 onPress={() => {
-                    props.navigation.navigate('Main')
+                    props.navigation.navigate('Login')
                 }}
               >
                 <Text style={{ color: '#DD83E0', fontSize: 15, fontWeight: 600, marginLeft: 50}}>로그아웃</Text>
