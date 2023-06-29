@@ -98,6 +98,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   searchInput: {
+    padding:10,
     width: '85%',
     height: '100%',
     backgroundColor: '#EFEFF0',

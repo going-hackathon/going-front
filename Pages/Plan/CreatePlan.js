@@ -7,7 +7,7 @@ import {styles} from '../../Components/Style'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-const CreatePlan = ({navigation}) => {
+const CreatePlan = (props) => {
   const [mapRegion, setmapRegion] = useState({ //나의 위치 usestate
     latitude: 36.7992587626175, //위도
     longitude: 127.07589223496811, //경도
@@ -21,7 +21,6 @@ const CreatePlan = ({navigation}) => {
       setRegion(region)
   };
 
-  const [searchText, setSearchText] = useState("")
 
 
 
@@ -118,12 +117,13 @@ const CreatePlan = ({navigation}) => {
 
 
         <View style={{ flexDirection: 'row' }}>
-          <View style={styles.searchBar}>
-            <TextInput
-              style={styles.searchInput}
-              value={searchText}
-              onChangeText={(e)=>{ setSearchText(e) }}
-            />
+          <TouchableOpacity 
+            style={styles.searchBar}
+            onPress={()=>{props.navigation.navigate("Search")}}
+          >
+            <View style={styles.searchInput}>
+              <Text style={{ color: '#7C869C' }}>장소 검색</Text>
+            </View>
             <View style={styles.searchicon}>
               <TouchableOpacity
                 onPress={() => {
@@ -134,7 +134,7 @@ const CreatePlan = ({navigation}) => {
               </TouchableOpacity>
             </View>
             
-          </View>
+          </TouchableOpacity>
 
 
         </View>
