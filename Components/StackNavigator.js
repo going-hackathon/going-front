@@ -5,6 +5,9 @@ import PinMap from '../Pages/Main/PinMap'
 import PlanList from '../Pages/Main/PlanList'
 import Plan from '../Pages/Plan/CreatePlan'
 import MyPage from '../Pages/MyPage/MyPage'
+import SignUp from '../Pages/MyPage/SignUp'
+import Login from '../Pages/MyPage/Login'
+
 
 const Stack = createStackNavigator();
 
@@ -43,6 +46,8 @@ const MyPageStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name='MyPage' component={MyPage} />
+      <Stack.Screen name='Login' component={Login} />
+      <Stack.Screen name='SignUp' component={SignUp} />      
     </Stack.Navigator>
   )
 }

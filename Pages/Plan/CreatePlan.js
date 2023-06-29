@@ -1,9 +1,10 @@
 import React, { useEffect, useState,  useRef,} from 'react';
-import { View, StyleSheet, Dimensions, Pressable, Image, Text,  } from 'react-native';
+import { View, Dimensions,  Text, TextInput  } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 // npm i react-native-maps
 import * as Location from 'expo-location';
 import {styles} from '../../Components/Style'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const CreatePlan = ({navigation}) => {
@@ -22,6 +23,7 @@ const CreatePlan = ({navigation}) => {
       setRegion(region)
   };
 
+  const [searchText, setSearchText] = useState("")
 
 
 
@@ -115,26 +117,29 @@ const CreatePlan = ({navigation}) => {
             </Callout>
           </Marker>     
         </MapView>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={styles.searchBar}>
+            <TextInput
+              style={styles.searchInput}
+              value={searchText}
+              onChangeText={(e)=>{ setSearchText(e) }}
+            />
+            <View style={styles.searchicon}>
+              <TouchableOpacity
+                onPress={() => {
+                  console.log('search')
+                }}
+              >
+                  <Text>검색아이콘 삽입</Text>
+              </TouchableOpacity>
+            </View>
+            
+          </View>
 
-
-        <View>
-          
 
         </View>
 
-        <View style={styles.buttons}>
-          {/* 버튼 */}
-          {/* 화면비율 맞추기 */}
 
-          <Pressable style={styles.closemap} onPress={() => navigation.navigate('Main')} >
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>지도 닫기</Text>
-          </Pressable>
-          <Text>              </Text>
-          <Pressable style={styles.closemap} onPress={() => navigation.navigate('Main')} >
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>지도 닫기</Text>
-          </Pressable>
-
-        </View>
 
       </View>
     </View>
