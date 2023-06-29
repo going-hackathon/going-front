@@ -4,9 +4,8 @@ import { styles } from '../../Components/Style'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAvoidingView } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import axios from 'axios'
-// device에 데이터 저장
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = (props) => {
     const [id, setID] = useState();
@@ -21,38 +20,39 @@ const Login = (props) => {
         }
     }
 
-    const login = () => {
-        (async () => {
-            try {
-                var id =""
-                const temp = {
-                    userAccountId: id,
-                    password: pw
-                }
-                
-                axios.post('http://13.125.131.18:8080/api/users/login', temp)
-                    .then((res) => {
-                        console.log(res.data);
-                        props.navigation.navigate("Main")
-                        // id = await AsyncStorage.setItem('token', res.data.token)
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-
-
-                if (id != null && pw != null) {
-                    return false
-                } else {
-                    return true
-                }
-
-            } catch (error) {
-                console.log(error)
-            }
-        })()
+    const handleLogin = () => {
+      const temp = {
+        userAccountId: id,
+        password: pw,
+      }
+      // console.log(temp);
+      axios.post('http://13.125.131.18:8080/api/users/login',null,{
+        params : {
+            userAccountId: id,
+            pw: pw,
+        }
+      })
+        .then((res) => {
+          console.log(res.data.token);
+          // AsyncStorage.setItem('token', res.data.token, () => { //user_id변수로 hwije123 저장
+          // })
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      // axios.post('http://13.125.131.18:8080/api/users/login', temp)
+      //   .then((res) => {
+      //     // console.log(res.data.token);
+      //     // AsyncStorage.setItem('token', res.data.token, () => { //user_id변수로 hwije123 저장
+      //       console.log('유저 id저장');
+      //     })
+      //     .catch((err) => {
+      //       // console.log(err);
+      //     });
+      // }
+        
+      
     }
-
 
     return (
         <KeyboardAvoidingView
@@ -90,8 +90,8 @@ const Login = (props) => {
                     <View style={{ width: '80%', height: '20%', }}>
                         <TouchableOpacity
                             style={styles.loginButton}
+                            onPress={handleLogin}
                             disabled={regist()}
-                            onPress={()=> login()}
                         >
                             <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'white' }}>로그인</Text>
                         </TouchableOpacity>

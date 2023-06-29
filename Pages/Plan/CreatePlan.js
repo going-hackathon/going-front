@@ -147,7 +147,7 @@ const CreatePlan = (props) => {
             <Text style={{ fontSize: 32, fontWeight: 'bold', color: 'white' }}>장소 이름</Text>
             <Text style={{ fontSize: 15, color: '#AFBAD0' }}>주소</Text>
           </View>
-          <View style={{ width: '25%', backgroundColor: 'yellow' }}>
+          <View style={{ width: '25%', }}>
             <Image style={{ width: 86, height: 86 }} source={require('../../assets/logo.png')} />
           </View>
 

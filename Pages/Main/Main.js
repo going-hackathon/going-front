@@ -52,10 +52,9 @@ const list = [
 
 
     useEffect(() => {
-      const temp = {
-
-      }
+      
       try{
+        console.log('useEeefttefrerr')
         const data = axios.get('http://13.125.131.18:8080/api/posts')
       } catch(err){
         console.log(err)
@@ -67,7 +66,6 @@ const list = [
       //     console.log(error)
       //     // 오류발생시 실행
       //   })
-      setData(list)
     }, [])
 
 
