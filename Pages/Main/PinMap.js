@@ -49,20 +49,23 @@ const PinMap = (props) => {
     {
       latitude: 36.7992587626175,
       longitude: 127.07589223496811,
+      isClick: false,
     },
     {
       latitude: 36.7962587626175,
       longitude: 127.17529223496811,
+      isClick: false,
     },
     {
       latitude: 36.7922587626175,
       longitude: 127.07189223496811,
+      isClick: false,
     },
   ]);
-  // const [myRegion, setMyRegion] = useState({ //나의 위치 usestate
-  //   latitude: 36.7992587626175, //위도
-  //   longitude: 127.07589223496811, //경도
-  // });
+  const [myRegion, setMyRegion] = useState({ //나의 위치 usestate
+    latitude: 36.7992587626175, //위도
+    longitude: 127.07589223496811, //경도
+  });
 
   //에니메이션으로 이동
   const mapRef = React.useRef(null);
@@ -78,15 +81,15 @@ const PinMap = (props) => {
 
       let location = await Location.getCurrentPositionAsync({}); //현재 위치 가져오기
 
-      // setmapRegion({ // 현재 위치 set
-      //   latitude: location.coords.latitude,
-      //   longitude: location.coords.longitude,
-      //   latitudeDelta: 0.5,
-      //   longitudeDelta: 0.5,
-      // })
+      setMyRegion({ //현재 위치 set
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.5,
+        longitudeDelta: 0.5,
+      })
     })();
   }, []);
-
+  console.log(mapRegion);
 
   return (
       <View style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height}}>
@@ -102,8 +105,8 @@ const PinMap = (props) => {
         <MapView
           style={styles.map}
           initialRegion={{
-            latitude: 0,
-            longitude: 0,
+            latitude: myRegion ? myRegion.latitude : 0,
+            longitude: myRegion ? myRegion.longitude : 0,
             latitudeDelta: 0.005,
             longitudeDelta: 0.005,
           }}
@@ -123,15 +126,51 @@ const PinMap = (props) => {
             strokeWidth={2}
           />
           {
-            mapRegion.map((item)=>{
+            mapRegion.map((item, index)=>{
               console.log(item)
+              if (item.isClick === false) {
+                return (
+                  <Marker
+                    coordinate={{ latitude: item.latitude, longitude: item.longitude }}
+                    onPress={() => 
+                      { 
+                        sheetRef.current.snapTo(0); 
+                        setmapRegion(mapRegion.map((item, idx) => {
+                          if (index === idx) {
+                            return { ...item, isClick: true };
+                          } else {
+                            return { ...item, isClick: false };
+                          }
+                        }));
 
-              return (
-                <Marker
-                  coordinate={{ latitude: item.latitude, longitude: item.longitude }}
-                  onPress={() => { sheetRef.current.snapTo(0) }}
-                ></Marker>
-              )
+                    }}
+                    image={require('../../assets/path1.png')}
+                  >
+                    <Callout style={{ width: Dimensions.get('screen').width * 0.1 }}>
+                      <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                        {/* <Text style={{ fontSize: 13, fontWeight: 'bold', }}>나의 현재 위치</Text> */}
+                        <Image source={require('../../assets/icon.png')} style={{ width: Dimensions.get('screen').width * 0.1, height: Dimensions.get('screen').width * 0.1}} />
+                      </View>
+                    </Callout>
+                  </Marker>
+                )
+              } else if (item.isClick===true) {
+                return (
+                  <Marker
+                    coordinate={{ latitude: item.latitude, longitude: item.longitude }}
+                    onPress={() => { sheetRef.current.snapTo(0) }}
+                    image={require('../../assets/path2.png')}
+                  >
+                    <Callout style={{ width: Dimensions.get('screen').width * 0.1 }}>
+                      <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                        {/* <Text style={{ fontSize: 13, fontWeight: 'bold', }}>나의 현재 위치</Text> */}
+                        <Image source={require('../../assets/icon.png')} style={{ width: Dimensions.get('screen').width * 0.1, height: Dimensions.get('screen').width * 0.1}} />
+                      </View>
+                    </Callout>
+                  </Marker>
+                )
+              }
+
             })
           }
 
