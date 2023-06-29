@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native'
-
+import { View, Text, Image, Dimensions, TouchableOpacity } from 'react-native'
+import BottomSheet from 'reanimated-bottom-sheet'
 // const list = [
 //   [
 //     {
@@ -18,20 +18,35 @@ import { View, Text, Image } from 'react-native'
 //   ]
 // ];
 const PinMap = (props) => {
+  const sheetRef = React.useRef(null);
+  const renderContent = () => (
+    <View
+      style={{
+        backgroundColor: 'white',
+        padding: 16,
+        height: 450,
+      }}
+    >
+      <Text>Swipe down to close</Text>
+    </View>
+  );
     return (
         <View>
+            <TouchableOpacity
+              onPress={() => sheetRef.current.snapTo(0)}
+            >
+              <Text>
+              click
+              </Text>
+            </TouchableOpacity>
             <Text>여행별자리</Text>
-            {/* <View>
-              <Text>N일차</Text>
-            </View>
-            <View>
-              <Text>날짜</Text>
-              <Text>장소이름</Text>
-              <Text>주소</Text>
-              <View>
-                <Image source={require('../../assets/map.png')} alt="이미지" />
-              </View>
-            </View> */}
+            <BottomSheet
+              ref={sheetRef}
+              snapPoints={[Dimensions.get('window').height * 0.69, Dimensions.get('window').width, 0]}
+              // snapPoints={[450, 300, 0]}
+              borderRadius={10}
+              renderContent={renderContent}
+          />
         </View>
     );
 };

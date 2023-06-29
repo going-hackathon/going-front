@@ -18,29 +18,30 @@ const list = [
   }
   ];
 
-  const Item = (props) => {
+  const Item = ({props}) => {
     return (
       <TouchableOpacity
         onPress={() => {
-            props.navigation.navigate("PlanList") 
+          // props.navigation.navigate("PinMap") 
+          props.navigation.navigate("PinMap") 
         }}
         style={styles.mainBody}
-    >
-      <View style={{ width: Dimensions.get('window').width* 0.9, height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 10}}>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-          <View style={{ width: 24, height: 24, marginRight: '5%'}}> 
-            <Image source={require('../../assets/icon.png')} alt="이미지" style={{ width: '100%', height: '100%', borderRadius: '50%'}} />
+      >
+        <View style={{ width: Dimensions.get('window').width* 0.9, height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 10}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{ width: 24, height: 24, marginRight: '5%'}}> 
+              <Image source={require('../../assets/icon.png')} alt="이미지" style={{ width: '100%', height: '100%', borderRadius: '50%'}} />
+            </View>
+            <Text style={{ fontSize: 16 }}>닉네임</Text>
           </View>
-          <Text style={{ fontSize: 16 }}>닉네임</Text>
+          <View style={{ width: 28, height: 28}}> 
+            <Image source={require('../../assets/map.png')} alt="이미지" style={{ width: '100%', height: '100%'}} />
+          </View>
         </View>
-        <View style={{ width: 28, height: 28}}> 
-          <Image source={require('../../assets/map.png')} alt="이미지" style={{ width: '100%', height: '100%'}} />
+        <View style={{ width: '100%', height: 328}}> 
+          <Image source={{ uri: 'https://t1.daumcdn.net/cfile/tistory/99128B3E5AD978AF20'}} alt="이미지" style={{ width: '100%', height: '100%', borderRadius: 8}} />
         </View>
-      </View>
-      <View style={{ width: '100%', height: 328}}> 
-        <Image source={{ uri: 'https://t1.daumcdn.net/cfile/tistory/99128B3E5AD978AF20'}} alt="이미지" style={{ width: '100%', height: '100%', borderRadius: 8}} />
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
     )
   }
 
@@ -56,12 +57,11 @@ const list = [
             </TouchableOpacity>
 
             <TouchableOpacity
-                onPress={() => {
-                    // props.navigation.navigate("PinMap") 
-                    props.navigation.navigate("PlanList") 
-
-                }}
-                style={styles.mainHeader}
+              onPress={() => {
+                // props.navigation.navigate("PinMap") 
+                props.navigation.navigate("PlanList") 
+              }}
+              style={styles.mainHeader}
             >
               <View style={{ flexDirection: 'row'}}>
                 <View style={{ height: '100%', width: '23%'}}>
@@ -81,7 +81,7 @@ const list = [
             <ScrollView>
             {
               list.map((item) => {
-                return <Item key={item.id}/>
+                return <Item key={item.id} props={props}/>
               })
             }
             </ScrollView>
