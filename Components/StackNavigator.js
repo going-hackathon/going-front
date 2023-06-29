@@ -4,6 +4,7 @@ import Main from '../Pages/Main/Main'
 import PinMap from '../Pages/Main/PinMap'
 import PlanList from '../Pages/Main/PlanList'
 import Plan from '../Pages/Plan/CreatePlan'
+import Search from '../Pages/Plan/SearchKeyWord'
 import MyPage from '../Pages/MyPage/MyPage'
 import SignUp from '../Pages/MyPage/SignUp'
 import Login from '../Pages/MyPage/Login'
@@ -37,6 +38,7 @@ const PlanStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name="Plan" component={Plan} />
+      <Stack.Screen name="Search" component={Search} />
     </Stack.Navigator>
   );
 }
