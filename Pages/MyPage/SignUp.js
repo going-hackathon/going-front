@@ -25,7 +25,7 @@ const SignUp = (props) => {
     const [gender, setGender] = useState("");
 
     //회원가입 버튼 활설화
-    const [okId, setOkId] = useState(false);
+    const [okId, setOkId] = useState(true);
     const [okPw, setOkPw] = useState(false);
     const [okName, setOkName] = useState(false);
     const [okBirth, setOkBirth] = useState(false);
@@ -43,7 +43,6 @@ const SignUp = (props) => {
 
     // 버튼 활성화 Sign Up
     const regiButton = () => {
-        console.log('regibutton')
         if (okId & okPw & okName & okBirth & okGender == true) {
             return false;
         } else {
@@ -154,14 +153,14 @@ const SignUp = (props) => {
             userAccountId: id
         }
 
-        axios.post("http://13.125.131.18:8080/api/users/join", null, {
-            params: {
-                userAccountId: id
-            }
-        })
-          .then(res =>{
-            console.log('res', res.data)
-          })
+        // axios.post("http://13.125.131.18:8080/api/users/join", null, {
+        //     params: {
+        //         userAccountId: id
+        //     }
+        // })
+        //   .then(res =>{
+        //     console.log('res', res.data)
+        //   })
 
     }
 
@@ -177,12 +176,15 @@ const SignUp = (props) => {
             g="FEMALE"
         }
 
+        var b = birth.split('-')[0]
+        console.log('b', b)
+        console.log('g', g)
 
         const temp = {
             userAccountId: id,
             password: password,
             nickname:name,
-            birth: birth,
+            birth: b,
             gender:g,
         }
         
@@ -212,7 +214,7 @@ const SignUp = (props) => {
                     <View style={{ width: '100%' }}>
                         <Text style={styles.titleText}>ID</Text>
                         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center' }}>
-                            <View style={{ borderBottomColor: 'gray', width: '75%', borderBottomWidth: 1, marginBottom: 10, padding: 10 }}>
+                            <View style={{ borderBottomColor: 'gray', width: '100%', borderBottomWidth: 1, marginBottom: 10, padding: 10 }}>
                                 <TextInput
                                     value={id}
                                     placeholder="ID 입력"
@@ -220,7 +222,7 @@ const SignUp = (props) => {
                                     maxLength={15}
                                 ></TextInput>
                             </View>
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                                 style={validateId(id) ? styles.overlapButton : [styles.overlapButton, { backgroundColor: "#F3BEF5" }]}
                                 disabled={!validateId(id)}
                                 onPress={() => { checkID(id) }}
@@ -228,7 +230,7 @@ const SignUp = (props) => {
                                 <Text style={{ fontSize: 15, color:'white' }}>
                                     중복확인
                                 </Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
 
 

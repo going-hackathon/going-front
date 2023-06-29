@@ -77,6 +77,7 @@ const CreatePlan = (props) => {
 
     // 이미지 업로드
     const uploadImage = async () => {
+        console.log('이미지피커', ImagePicker.MediaTypeOptions.Images)
 
         if (!status.granted) { // status로 권한이 있는지 확인
             const permission = await requestPermission();
@@ -85,7 +86,6 @@ const CreatePlan = (props) => {
             }
         }
 
-        console.log('이미지피커', ~ImagePicker.MediaTypeOptions.Images)
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: false,
@@ -136,6 +136,7 @@ const CreatePlan = (props) => {
                     style={{ width: 80, height: 30, backgroundColor: '#AFBAD0', marginBottom: 5, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }}
                     onPress={() => {
                         setCheck(false)
+                        console.log('저장')
                     }}
                 >
                     <Text style={{ color: 'white' }}>저장</Text>
@@ -150,7 +151,7 @@ const CreatePlan = (props) => {
                     </View>
                     <TouchableOpacity
                         onPress={() => uploadImage()}
-                        style={{ width: '25%', backgroundColor: 'yellow' }}
+                        style={{ width: '25%', }}
                     >
                         <Image style={{ width: 86, height: 86 }} source={require('../../assets/logo.png')} />
                     </TouchableOpacity>

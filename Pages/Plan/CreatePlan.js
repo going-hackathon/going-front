@@ -22,7 +22,6 @@ const CreatePlan = (props) => {
   const mapRegionChangehandle = (region) => {
     setRegion(region)
   };
-  const [data, setData] = useState([]); // 검색한 데이터 저장
   // bottomsheet
   const sheetRef = React.useRef(null);
 
@@ -33,23 +32,12 @@ const CreatePlan = (props) => {
   const [memo, setMemo] = useState("");
   const [searchdate, setSearchDate] = useState();
 
+  // data list
+  const [searchList, setSearchList] = useState([]); // 검색 결과 리스트
+  const [data, setData] = useState(); // 검색 결과 리스트
+  const [list, setList] = useState([]); // 여행갈 곳 리스트
 
-
-  useEffect(() => {
-    // 장소 입력했을 navigation 에서 데이터 가져오기
-
-    const unsubscribe = props.navigation.addListener('focus', () => {
-      if (props.route.params != null) {
-        var data = props.route.params.data; // navigation으로 검색 내용을 params로 가져온다.
-        setData(data) // 검색한 내용을 저장
-        console.log('data', data);
-      }
-    });
-  }, [])
-
-
-
-
+  
 
   useEffect(() => {
     (async () => {
@@ -97,6 +85,8 @@ const CreatePlan = (props) => {
     setDate(changeDate)
   }
 
+
+
   //서버에 검색어 보냄
   const search = () => {
     // 검색 보냄
@@ -106,6 +96,7 @@ const CreatePlan = (props) => {
       }
     })
       .then(function (res) {
+        setSearchList(res.data)
         console.log("resgister", res.data);
       })
       .catch(function (error) {
@@ -113,8 +104,11 @@ const CreatePlan = (props) => {
       })
   }
 
+
+
   //원하는 지역을 선택함
-  const selectPlace=()=>{
+  const selectPlace=(idx)=>{
+    setData(searchList[idx]) // 선택한 지역의 정보 -> 핀 찍기 위해
     setCheck(false)
   }
 
@@ -144,10 +138,10 @@ const CreatePlan = (props) => {
               keyboardType={'numeric'}
               onChangeText={handleBirthChange}
             ></TextInput>
-            <Text style={{ fontSize: 32, fontWeight: 'bold', color: 'white' }}>장소 이름</Text>
-            <Text style={{ fontSize: 15, color: '#AFBAD0' }}>주소</Text>
+            <Text style={{ fontSize: 32, fontWeight: 'bold', color: 'white' }}>장소 이름 data.name</Text>
+            <Text style={{ fontSize: 15, color: '#AFBAD0' }}>주소  data.address</Text>
           </View>
-          <View style={{ width: '25%', backgroundColor: 'yellow' }}>
+          <View style={{ width: '25%', }}>
             <Image style={{ width: 86, height: 86 }} source={require('../../assets/logo.png')} />
           </View>
 
@@ -205,6 +199,25 @@ const CreatePlan = (props) => {
                 </View>
               </View>
 
+
+              {/* {
+                searchList?.map((item, index) => {
+                  <TouchableOpacity
+                    key={index}
+                    style={{ width: 350, height: 70, flexDirection: 'row', alignItems: 'center', padding: 10 }}
+                    onPress={() => { selectPlace(index) }}
+
+                  >
+                    <View>
+                      <Image style={{ width: 48, height: 48, marginRight: 8 }} source={require('../../assets/SearchPin.png')} />
+                    </View>
+                    <View>
+                      <Text style={{ fontSize: 18, color: '#7C869C', fontWeight: 'bold', marginBottom: 5 }}>{item.name}</Text>
+                      <Text style={{ fontSize: 12, color: '#7C869C', }}>{item.address}</Text>
+                    </View>
+
+                  </TouchableOpacity>})
+                } */}
 
 
               <TouchableOpacity
@@ -270,6 +283,47 @@ const CreatePlan = (props) => {
                     </View>
                   </Callout>
                 </Marker>
+
+                {
+                  placeList?.map((item, index) => { // placeList : 사용자가 가려고 하는 곳의 핀들
+                    <Marker
+                      coordinate={{ latitude: item.latitude, longitude: item.longitude }}
+                      onPress={() => {
+                        sheetRef.current.snapTo(0)
+                        onDetail(item.latitude, item.longitude)
+                      }}
+                    >
+                      <Callout style={{ width: Dimensions.get('screen').width * 0.4, }}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                          <Text style={{ fontSize: 13, fontWeight: 'bold', }}>나의 현재 위치</Text>
+                        </View>
+                      </Callout>
+                    </Marker>
+
+                  })
+                }
+
+
+                {
+                  data?.map((item, index) => { // data : 사용자가 가려고 선택한 값
+                    <Marker
+                      coordinate={{ latitude: item.latitude, longitude: item.longitude }}
+                      onPress={() => {
+                        sheetRef.current.snapTo(0)
+                        onDetail(item.latitude, item.longitude)
+                      }}
+                    >
+                      <Callout style={{ width: Dimensions.get('screen').width * 0.4, }}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                          <Text style={{ fontSize: 13, fontWeight: 'bold', }}>나의 현재 위치</Text>
+                        </View>
+                      </Callout>
+                    </Marker>
+                  })
+                }
+
+
+
               </MapView>
 
 
