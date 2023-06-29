@@ -34,21 +34,7 @@ const CreatePlan = (props) => {
     //갤러리 권한 요청이 되어있는지 확인
     const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
 
-    useEffect(() => {
-        // 장소 입력했을 navigation 에서 데이터 가져오기
-
-        const unsubscribe = props.navigation.addListener('focus', () => {
-            if (props.route.params != null) {
-                var data = props.route.params.data; // navigation으로 검색 내용을 params로 가져온다.
-                setData(data) // 검색한 내용을 저장
-                console.log('data', data);
-            }
-        });
-    }, [])
-
-
-
-
+    
 
     useEffect(() => {
         (async () => {

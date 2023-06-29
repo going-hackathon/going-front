@@ -7,16 +7,19 @@ import {
     NativeModules, Button, Platform,
 } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import axios from 'axios';
 
 // 키보드가 가리는 문제 때문에 아마 아이폰에만 있을 듯?
 const { StatusBarManager } = NativeModules
 
+const IP = "http://13.125.131.18:8080"
 
 const SignUp = (props) => {
 
     // 입력 내용
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordcheck, setPasswordcheck] = useState("");
     const [name, setName] = useState("");
     const [birth, setBirth] = useState("");
     const [gender, setGender] = useState("");
@@ -40,10 +43,12 @@ const SignUp = (props) => {
 
     // 버튼 활성화 Sign Up
     const regiButton = () => {
-        if (okId & okPw & okName & okBirth == true) {
+        console.log('regibutton')
+        if (okId & okPw & okName & okBirth & okGender == true) {
             return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
 
@@ -61,12 +66,14 @@ const SignUp = (props) => {
 
     //이름 정규식
     const validateName = name => {
-        const regex = /^[a-zA-Zㄱ-힣]{1,20}$/;
+        const regex = /^[a-zA-Zㄱ-힣]{1,10}$/;
         return regex.test(name);
     }
     
+    // 성별 정규식
     const validateGender = gender =>{
         if (gender=="남" || gender=="여"){
+            console.log('gender check')
             return true;
         }else{
             return false;
@@ -105,6 +112,17 @@ const SignUp = (props) => {
         setOkPw(validatePw(changedPw));
     }
 
+    //비밀번호 동일 확인 핸들러
+    const handlePwCheckChange = (pwcheck) => {
+        setPasswordcheck(pwcheck);
+        if(pwcheck==password){
+            setOkPw(true);
+        }
+        else{
+            setOkPw(false);
+        }
+    }
+
     //이름 핸들러
     const handleNameChange = (name) => {
         const changedName = removespace(name);
@@ -120,37 +138,63 @@ const SignUp = (props) => {
         setOkBirth(validateBirth(changeDate))
     }
 
-
     // 성별 핸들러
     const handleGenderChange = (gender) => {
-        setGender(gender)
-        setOKGender(validateGender(gender))
+        const changeGender = removespace(gender);
+        setGender(changeGender)
+        setOKGender(validateGender(changeGender))
+    }
+
+    // 아이디 중복 확인
+    const checkID = (id) => {
+        console.log('checkID', id)
+        setOkId(true)
+
+        const temp={
+            userAccountId: id
+        }
+
+        axios.post("http://13.125.131.18:8080/api/users/join", null, {
+            params: {
+                userAccountId: id
+            }
+        })
+          .then(res =>{
+            console.log('res', res.data)
+          })
+
     }
 
 
 
     const SignUpButton = () => {
-        Alert.alert('회원가입 완료')
-            // 회원가입 DB 넣기
-            (async () => {
-                // 가입 날짜
-                let todayData = new Date();
-                let today = todayData.toLocaleDateString()
+       
+        var g =""
+        // 회원가입 DB 넣기
+        if (gender === "남") {
+            g ="MALE"
+        }else if (gender ==="여"){
+            g="FEMALE"
+        }
 
-                
-                // DB 넣기
-                const docRef = await setDoc(doc(db, "User", id), {
-                    u_date: today,
-                    u_donation: 0,
-                    u_id: id,
-                    u_name: name,
-                    u_pw: password,
-                    u_rent: false,
-                });
 
-                console.log("Document written with ID: ", docRef.id);
-                props.navigation.navigate("Main") // 회원가입 완료 후 로그인 화면으로 이동
-            })();
+        const temp = {
+            userAccountId: id,
+            password: password,
+            nickname:name,
+            birth: birth,
+            gender:g,
+        }
+        
+
+        axios.post('http://13.125.131.18:8080/api/users/join', temp)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
 
 
     }
@@ -200,14 +244,15 @@ const SignUp = (props) => {
                                     onChangeText={handlePwChange}
                                 />
                             </View>
+
                             <Text style={styles.titleText}>비밀번호 확인</Text>
                             <View style={{ borderBottomColor: 'gray', borderBottomWidth: 1, marginBottom: 10, padding: 10 }}>
                                 <TextInput
 
                                     secureTextEntry={true}
-                                    value={password}
+                                    value={passwordcheck}
                                     placeholder="비밀번호 확인"
-                                    onChangeText={handlePwChange}
+                                    onChangeText={handlePwCheckChange}
                                 />
                             </View>
 

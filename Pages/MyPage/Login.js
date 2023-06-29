@@ -4,32 +4,14 @@ import { styles } from '../../Components/Style'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAvoidingView } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-
-
+import axios from 'axios'
+// device에 데이터 저장
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = (props) => {
     const [id, setID] = useState();
     const [pw, setPW] = useState();
     const [statusBarHeight, setStatusBarHeight] = useState(0);
-
-    useEffect(() => {
-        // console.log('all')
-        // axios.post(`${IP}/review/list`, null, {
-        //     params: {
-        //         // latitude: location.coords.latitude,
-        //         // longitude: location.coords.longitude,
-        //     }
-        // })
-        //     .then(function (res) {
-        //         console.log("all", res.data);
-        //         setAll(res.data)
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error)
-        //     })
-
-    }, [])
-
 
     const regist = () => {
         if (id != null && pw != null) {
@@ -37,6 +19,38 @@ const Login = (props) => {
         } else {
             return true
         }
+    }
+
+    const login = () => {
+        (async () => {
+            try {
+                var id =""
+                const temp = {
+                    userAccountId: id,
+                    password: pw
+                }
+                
+                axios.post('http://13.125.131.18:8080/api/users/login', temp)
+                    .then((res) => {
+                        console.log(res.data);
+                        props.navigation.navigate("Main")
+                        // id = await AsyncStorage.setItem('token', res.data.token)
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+
+
+                if (id != null && pw != null) {
+                    return false
+                } else {
+                    return true
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
+        })()
     }
 
 
@@ -77,6 +91,7 @@ const Login = (props) => {
                         <TouchableOpacity
                             style={styles.loginButton}
                             disabled={regist()}
+                            onPress={()=> login()}
                         >
                             <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'white' }}>로그인</Text>
                         </TouchableOpacity>

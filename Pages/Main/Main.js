@@ -1,7 +1,9 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import {styles} from '../../Components/Style'
 import {Image,Dimensions} from 'react-native';
+import axios from 'axios'
+
 
 const list = [
   {
@@ -46,6 +48,29 @@ const list = [
   }
 
   const Main = (props) => {
+    const [data, setData] = useState()
+
+
+    useEffect(() => {
+      const temp = {
+
+      }
+      try{
+        const data = axios.get('http://13.125.131.18:8080/api/posts')
+      } catch(err){
+        console.log(err)
+      }
+      // axios.get('http://13.125.131.18:8080/api/posts')
+      //   .then(function (response) {
+      //     console.log(response)  
+      //   }).catch(function (error) {
+      //     console.log(error)
+      //     // 오류발생시 실행
+      //   })
+      setData(list)
+    }, [])
+
+
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
             <TouchableOpacity
@@ -58,8 +83,7 @@ const list = [
 
             <TouchableOpacity
               onPress={() => {
-                // props.navigation.navigate("PinMap") 
-                props.navigation.navigate("PlanList") 
+                props.navigation.navigate("MyPinMap") 
               }}
               style={styles.mainHeader}
             >

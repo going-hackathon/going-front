@@ -76,7 +76,7 @@ const PinMap = (props) => {
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({}); //현재 위치 가져오기
+      // let location = await Location.getCurrentPositionAsync({}); //현재 위치 가져오기
 
       // setmapRegion({ // 현재 위치 set
       //   latitude: location.coords.latitude,
@@ -124,7 +124,6 @@ const PinMap = (props) => {
           {
             mapRegion.map((item)=>{
               console.log(item)
-
               return (
                 <Marker
                   coordinate={{ latitude: item.latitude, longitude: item.longitude }}
