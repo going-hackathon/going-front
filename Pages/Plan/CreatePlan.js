@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, } from 'react';
 import { View, Dimensions, Text, TextInput, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import MapView, { Marker, Callout } from 'react-native-maps';
+import MapView, { Marker, Callout, Polyline } from 'react-native-maps';
 // npm i react-native-maps
 import * as Location from 'expo-location';
 import { styles } from '../../Components/Style'
@@ -31,6 +31,7 @@ const CreatePlan = (props) => {
   const [searchText, setSearchText] = useState("");
 
   const [memo, setMemo] = useState("");
+  const [searchdate, setSearchDate] = useState();
   useEffect(() => {
     // 장소 입력했을 navigation 에서 데이터 가져오기
 
@@ -83,6 +84,11 @@ const CreatePlan = (props) => {
       longitudeDelta: 0.005
     }, 1000);
   }
+  // 자동 하이픈 생성 생년월일
+  const autoHyphenBirth = (target) => {
+    return target.replace(/[^0-9]/g, '').replace(/^(\d{0,4})(\d{0,2})(\d{0,2})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+  }
+
 
   //서버에 검색어 보냄
   const search = () => {
@@ -124,6 +130,13 @@ const CreatePlan = (props) => {
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{ width: '95%', flexDirection: 'row', alignItems: 'center' }}>
           <View style={{ width: '75%', }}>
+            <TextInput
+              style={{color:'white'}}
+              value={setSearchDate}
+              placeholder='날짜 입력'
+              placeholderTextColor={'white'}
+              
+            />
             <Text style={{ fontSize: 32, fontWeight: 'bold', color: 'white' }}>장소 이름</Text>
             <Text style={{ fontSize: 15, color: '#AFBAD0' }}>주소</Text>
           </View>
@@ -205,12 +218,15 @@ const CreatePlan = (props) => {
             </View>
           </TouchableWithoutFeedback>
 
+
+
+
           :
 
+
+
+
           <View style={styles.container} >
-
-
-
             <View style={styles.containerMap} >
               <MapView
                 style={styles.map}
