@@ -30,7 +30,7 @@ const CreatePlan = (props) => {
   const [statusBarHeight, setStatusBarHeight] = useState(0);
   const [searchText, setSearchText] = useState("");
 
-
+  const [memo, setMemo] = useState("");
   useEffect(() => {
     // 장소 입력했을 navigation 에서 데이터 가져오기
 
@@ -85,8 +85,19 @@ const CreatePlan = (props) => {
   }
 
   //서버에 검색어 보냄
-  const search = () =>{
-
+  const search = () => {
+    // 검색 보냄
+    axios.post(`${IP}/review/surrounding`, null, {
+      params: {
+        searchText: searchText, // 검색한 내용
+      }
+    })
+      .then(function (res) {
+        console.log("resgister", res.data);
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 
   //원하는 지역을 선택함
@@ -96,11 +107,41 @@ const CreatePlan = (props) => {
 
   // bottomsheet
   const renderContent = () => (
+
     <View
-      style={{width:'100%', height:'100%', backgroundColor:'white', padding:20}}
+      style={{ width: '100%', height: '100%', backgroundColor: '#5F7193', padding: 20, alignItems: 'center' }}
     >
-      <Text>dfdfdf</Text>
+      <View style={{width:'100%', alignItems:'flex-end', marginBottom:10}}>
+        <TouchableOpacity
+          style={{ width: 80, height: 30, backgroundColor: '#AFBAD0', marginBottom:5, justifyContent:'center', alignItems:'center', borderRadius:10}}
+          onPress={() => {
+            setCheck(false)
+          }}
+        >
+          <Text style={{color:'white'}}>저장</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={{ width: '95%', flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ width: '75%', }}>
+            <Text style={{ fontSize: 32, fontWeight: 'bold', color: 'white' }}>장소 이름</Text>
+            <Text style={{ fontSize: 15, color: '#AFBAD0' }}>주소</Text>
+          </View>
+          <View style={{ width: '25%', backgroundColor: 'yellow' }}>
+            <Image style={{ width: 86, height: 86 }} source={require('../../assets/logo.png')} />
+          </View>
+
+        </View>
+      </TouchableWithoutFeedback>
+      <TextInput
+        style={{ width: '100%', height: '10%', color:'white', padding: 10, borderRadius: 10, marginTop: 10 }}
+        value={memo}
+        onChangeText={setMemo}
+        placeholder='한줄 메모'
+        placeholderTextColor={'white'}
+      />
     </View>
+
   );
 
 
@@ -210,8 +251,9 @@ const CreatePlan = (props) => {
 
 
               <BottomSheet
+              // onOpenStart={false}
                 ref={sheetRef}
-                snapPoints={[Dimensions.get('window').height * 0.5, Dimensions.get('window').width, 0]}
+                snapPoints={[Dimensions.get('window').height * 0.6, Dimensions.get('window').width, 0]}
                 // snapPoints={[450, 300, 0]}
                 borderRadius={30}
                 renderContent={renderContent}
