@@ -19,12 +19,14 @@ const SignUp = (props) => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const [birth, setBirth] = useState("");
+    const [gender, setGender] = useState("");
 
     //회원가입 버튼 활설화
     const [okId, setOkId] = useState(false);
     const [okPw, setOkPw] = useState(false);
     const [okName, setOkName] = useState(false);
     const [okBirth, setOkBirth] = useState(false);
+    const [okGender, setOKGender] = useState(false);
 
     const [statusBarHeight, setStatusBarHeight] = useState(0);
 
@@ -62,6 +64,14 @@ const SignUp = (props) => {
         const regex = /^[a-zA-Zㄱ-힣]{1,20}$/;
         return regex.test(name);
     }
+    
+    const validateGender = gender =>{
+        if (gender=="남" || gender=="여"){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
     // 생년월일 정규식
@@ -86,19 +96,12 @@ const SignUp = (props) => {
     const handleIdChange = (id) => {
         const changeID = removespace(id)
         setId(changeID)
-        // setErrorMessageID(
-        //   validateId(changeID) ? "올바른 ID 형식입니다." : "영문로 시작하는 영문자 또는 숫자 4~12자리"
-        // );
-
     };
 
     //비밀번호 핸들러
     const handlePwChange = (pw) => {
         const changedPw = removespace(pw);
         setPassword(changedPw);
-        // setErrorMessagePw(
-        //   validatePw(changedPw) ? "올바른 비밀번호 형식입니다." : "영문, 숫자 조합 8~16자리"
-        // );
         setOkPw(validatePw(changedPw));
     }
 
@@ -106,9 +109,6 @@ const SignUp = (props) => {
     const handleNameChange = (name) => {
         const changedName = removespace(name);
         setName(changedName);
-        // setErrorMessageName(
-        //   validateName(changedName) ? "올바른 이름 형식입니다." : "이름을 올바르게 입력해주세요."
-        // );
         setOkName(validateName(changedName));
     }
 
@@ -117,10 +117,13 @@ const SignUp = (props) => {
     const handleBirthChange = (birth) => {
         const changeDate = autoHyphenBirth(birth)
         setBirth(changeDate)
-        // setErrorMessageBirth(
-        //   validateBirth(changeDate) ? '올바른 생년월일 형식입니다.' : '올바른 생년월일 형식이 아닙니다.'
-        // )
         setOkBirth(validateBirth(changeDate))
+    }
+
+    // 성별 핸들러
+    const handleGenderChange = (gender) => {
+        setGender(gender)
+        setOKGender(validateGender(gender))
     }
 
 
@@ -225,6 +228,17 @@ const SignUp = (props) => {
                                     maxLength={10}
                                     keyboardType={'numeric'}
                                     onChangeText={handleBirthChange}
+                                ></TextInput>
+                            </View>
+
+
+                            <Text style={styles.titleText}>성별</Text>
+                            <View style={{ borderBottomColor: 'gray', borderBottomWidth: 1, marginBottom: 10, padding: 10 }}>
+                                <TextInput
+                                    value={gender}
+                                    placeholder="남/여"
+                                    maxLength={10}
+                                    onChangeText={handleGenderChange}
                                 ></TextInput>
                             </View>
                         </TouchableWithoutFeedback>

@@ -51,8 +51,11 @@ const Login = (props) => {
                 <TouchableWithoutFeedback style={{ width: '100%', height: '30%',backgroundColor:'yellow'}}
                     onPress={()=> Keyboard.dismiss()}
                     
-                >
-                    <Text>로고</Text>
+                >   
+                <View style={{justifyContent:'center', alignItems:'center'}}>
+                    <Text style={{fontSize:12, color:'#AFBAD0'}}>함께 만들어 가는 여행의 즐거움,</Text>
+                    <Image style={{width:114, height:64}} source={require('../../assets/logo.png')}/>
+                </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.loginView}>
                     <View style={{ width: '80%', height: '30%', marginBottom: 10 }}>
