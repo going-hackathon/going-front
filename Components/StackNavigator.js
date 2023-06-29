@@ -24,6 +24,7 @@ const screenOptionStyle = ({route}) =>
     });
 
 
+
 const HomeStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle} >
