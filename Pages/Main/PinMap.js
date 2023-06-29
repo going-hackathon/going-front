@@ -90,6 +90,7 @@ const PinMap = (props) => {
 
   return (
       <View style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height}}>
+
         <BottomSheet
           ref={sheetRef}
           snapPoints={[Dimensions.get('window').height * 0.4, Dimensions.get('window').width, 0]}
