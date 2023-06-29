@@ -20,9 +20,16 @@ const CreatePlan = (props) => {
   const mapRegionChangehandle = (region) => {
       setRegion(region)
   };
+  const [data, setData] = useState([]); //데이터 저장
 
-
-
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      setData(...data,"check");
+      console.log('data',data)
+      // The screen is focused
+      // Call any action
+    });
+  }, [props])
 
 
   useEffect(() => {

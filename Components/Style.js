@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
     width: Dimensions.get('window').width,
@@ -101,6 +101,7 @@ export const styles = StyleSheet.create({
     padding:10,
     width: '85%',
     height: '100%',
+    justifyContent:'center',
     backgroundColor: '#EFEFF0',
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10
