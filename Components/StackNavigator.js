@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Main from '../Pages/Main/Main'
 import PinMap from '../Pages/Main/PinMap'
 import PlanList from '../Pages/Main/PlanList'
+import MyPinMap from '../Pages/Main/MyPinMap'
 import Plan from '../Pages/Plan/CreatePlan'
 import Search from '../Pages/Plan/SearchKeyWord'
 import MyPage from '../Pages/MyPage/MyPage'
@@ -29,6 +30,7 @@ const HomeStackNavigator = () => {
       <Stack.Screen name="Main" component={Main} />
       <Stack.Screen name="PinMap" component={PinMap} />
       <Stack.Screen name="PlanList" component={PlanList} />
+      <Stack.Screen name="MyPinMap" component={MyPinMap} />
     </Stack.Navigator>
   );
 }
