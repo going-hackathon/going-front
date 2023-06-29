@@ -9,23 +9,23 @@ const TabNavigator = () => {
         <Tab.Navigator
             initialRouteName="Home"
             tabBarOptions={{
-                // activeBackgroundColor: 'skyblue',
-                // activeTintColor: 'blue',
-                // inactiveBackgroundColor: 'yellow',
                 style: {
                     radiuswidth:10,
                 },
+                showLabel: false,
                 labelPosition: 'beside-icon'
             }}
             
             screenOptions={({ route }) => ({
+                showLabel: false,
                 tabBarIcon: ({ focused }) => (
                     TabBarIcon(focused, route.name)
                 ),
                 tabBarStyle: {
+                    height: 100,
                     backgroundColor:'#424242',
                     opacity: 0.5,
-                    paddingTop: 7,
+                    paddingTop: 10,
                     borderTopLeftRadius: 24,
                     borderTopRightRadius: 24,
                     borderLeftWidth: 0.2,

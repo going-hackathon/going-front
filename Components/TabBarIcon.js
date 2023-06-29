@@ -21,6 +21,7 @@ const TabBarIcon = (focused, name) => {
     }
 
     return (
+            
         <Image
             style={{
                 width: focused ? 54 : 52,
