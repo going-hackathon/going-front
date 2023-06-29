@@ -26,7 +26,7 @@ const Item = ({date, locationName, address, img}) => {
         <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFFFFF'}}>{locationName}</Text>
         <Text style={{ fontSize: 8, color: '#AFBAD0'}}>{address}</Text>
       </View>
-      <View style={{ width: '20%', height: '65s%'}}>
+      <View style={{ width: '20%', height: '65%'}}>
         <Image source={require('../../assets/icon.png')} alt="이미지" style={{ width: '100%', height: '100%', borderRadius: '50%'}} />
       </View>
     </View>
