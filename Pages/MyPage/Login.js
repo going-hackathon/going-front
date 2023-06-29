@@ -47,14 +47,14 @@ const Login = (props) => {
             keyboardVerticalOffset={statusBarHeight + 44}
             onPress={()=> Keyboard.dismiss()}
         >
-            <View style={{ width: '80%', height: '50%', backgroundColor: 'yellow' }} >
-                <TouchableWithoutFeedback style={{ width: '100%', height: '30%', backgroundColor: 'orange' }}
+            <View style={{ width: '80%', height: '50%',}} >
+                <TouchableWithoutFeedback style={{ width: '100%', height: '30%',backgroundColor:'yellow'}}
                     onPress={()=> Keyboard.dismiss()}
                     
                 >
                     <Text>로고</Text>
                 </TouchableWithoutFeedback>
-                <View style={{ width: '100%', height: '70%', backgroundColor: '#5F7193', borderRadius: 25, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={styles.loginView}>
                     <View style={{ width: '80%', height: '30%', marginBottom: 10 }}>
                         <TextInput
                             style={styles.loginInput}

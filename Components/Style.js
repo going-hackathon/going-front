@@ -118,6 +118,15 @@ export const styles = StyleSheet.create({
 
 
     // Login
+    loginView:{
+        width: '100%', 
+        height: '70%', 
+        backgroundColor: '#5F7193', 
+        borderRadius: 25, 
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+
     loginInput:{
         backgroundColor:'white', 
         width:'100%', 
@@ -204,6 +213,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     fontWeight: 'bold'
   },
+
+
+  
+
 
 
 })

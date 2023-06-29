@@ -172,11 +172,11 @@ const SignUp = (props) => {
                                 ></TextInput>
                             </View>
                             <TouchableOpacity
-                                style={validateId(id) ? styles.overlapButton : [styles.overlapButton, { opacity: 0.4 }]}
+                                style={validateId(id) ? styles.overlapButton : [styles.overlapButton, { backgroundColor: "#F3BEF5" }]}
                                 disabled={!validateId(id)}
                                 onPress={() => { checkID(id) }}
                             >
-                                <Text style={{ fontSize: 15 }}>
+                                <Text style={{ fontSize: 15, color:'white' }}>
                                     중복확인
                                 </Text>
                             </TouchableOpacity>
@@ -232,7 +232,7 @@ const SignUp = (props) => {
                 </View>
 
 
-                <View style={{ backgroundColor: 'orange', }}>
+                <View style={{ width:'80%', alignItems:'center' }}>
                     <TouchableOpacity
                         style={styles.loginBTN}
                         disabled={regiButton()}
@@ -241,7 +241,16 @@ const SignUp = (props) => {
                             SignUpButton()
                         }}
                     >
-                        <Text style={regiButton() ? [styles.loginText, { opacity: 0.3 }] : styles.loginText}>Sign Up</Text>
+                        <Text style={{color:'white', fontWeight:'bold', fontSize:20}}>Sign Up</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={{ width: 260, height: 48, justifyContent:'center', alignItems:'center', opacity:0.5}}
+                        onPress={() => {
+                            props.navigation.navigate("Login")
+                        }}
+                    >
+                        <Text style={{color:'#393D46', fontWeight:'bold', fontSize:18}}>Login</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>            
@@ -258,13 +267,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
-    },
-    title: {
-        width: Dimensions.get('window').width * 0.4,
-        height: Dimensions.get('window').height * 0.15,
     },
     importInfo: { // 회원가입 필수정보
         width: Dimensions.get('window').width * 0.8,
@@ -272,39 +276,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    submitbutton: {
-        width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').height * 0.1,
-    },
-    //로그인 화면 인풋텍스트
-    idloginputText: {
-        width: '73%',
-        height: 35,
-        fontSize: 18,
-        color: 'black',
-        backgroundColor: '#EDEDED',
-        borderRadius: 3,
-        alignItems: 'center',
-        padding: 5,
-    },
-    loginputText: {
-        width: '100%',
-        height: 35,
-        fontSize: 18,
-        color: 'black',
-        backgroundColor: '#EDEDED',
-        borderRadius: 3,
-        alignItems: 'center',
-        padding: 5,
-    },
     titleText: {
         marginTop: 8,
         marginLeft: 8,
-        color: '#6699FF',
+        color: '#393D46',
         fontWeight: 'bold',
     },
     overlapButton: {
-        backgroundColor: '#6699FF',
+        backgroundColor:'#DD83E0',
         justifyContent: 'center',
         alignItems: 'center',
         height: 35,
@@ -313,21 +292,12 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
     loginBTN: {
-        backgroundColor: '#D9E5FF',
-        width: 100,
-        height: 30,
+        backgroundColor: '#F3BEF5',
+        width: 260,
+        height: 48,
         marginTop: 5,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    //로그인 화면 버튼 텍스트
-    loginText: {
-        fontSize: 15,
-        color: 'black',
-        textAlign: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontWeight: 'bold'
     },
 });
