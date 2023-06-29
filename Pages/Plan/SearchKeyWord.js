@@ -4,15 +4,6 @@ import { styles } from '../../Components/Style'
 import { TouchableWithoutFeedback } from 'react-native';
 
 const SearchKeyWord = (props) => {
-    const [searchText, setSearchText] = useState("")
-    const [statusBarHeight, setStatusBarHeight] = useState(0);
-    const search = () => {
-        console.log('search')
-    }
-
-
-
-
 
     return (
         <TouchableWithoutFeedback
@@ -48,7 +39,12 @@ const SearchKeyWord = (props) => {
 
                 <TouchableOpacity
                     style={{ width: 350, height: 70, flexDirection: 'row', alignItems: 'center', padding: 10 }}
-                    onPress={() => props.navigation.navigate("Plan")}
+                    onPress={() => {props.navigation.navigate("Plan",{
+                        "data":1
+                    })
+                    props.navigation.pop()}
+                }
+                   
                 >
                     <View>
                         <Image style={{width:48, height:48, marginRight:8}} source={require('../../assets/SearchPin.png')} />

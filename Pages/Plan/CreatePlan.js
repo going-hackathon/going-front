@@ -1,10 +1,12 @@
-import React, { useEffect, useState,  useRef,} from 'react';
-import { View, Dimensions,  Text, TextInput, Image } from 'react-native';
+import React, { useEffect, useState, useRef, } from 'react';
+import { View, Dimensions, Text, TextInput, Image } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 // npm i react-native-maps
 import * as Location from 'expo-location';
-import {styles} from '../../Components/Style'
+import { styles } from '../../Components/Style'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import BottomSheet from 'reanimated-bottom-sheet';
+
 
 
 const CreatePlan = (props) => {
@@ -18,18 +20,25 @@ const CreatePlan = (props) => {
 
   // 드래그 해서 위치의 위도경도 가져오기
   const mapRegionChangehandle = (region) => {
-      setRegion(region)
+    setRegion(region)
   };
-  const [data, setData] = useState([]); //데이터 저장
+  const [data, setData] = useState([]); // 검색한 데이터 저장
+  // bottomsheet
+  const sheetRef = React.useRef(null);
+
+  const [check, setCheck] = useState(false)
 
   useEffect(() => {
+    // 장소 입력했을 navigation 에서 데이터 가져오기
+
     const unsubscribe = props.navigation.addListener('focus', () => {
-      setData(...data,"check");
-      console.log('data',data)
-      // The screen is focused
-      // Call any action
+      if (props.route.params != null) {
+        var data = props.route.params.data; // navigation으로 검색 내용을 params로 가져온다.
+        setData(data) // 검색한 내용을 저장
+        console.log('data', data);
+      }
     });
-  }, [props])
+  }, [])
 
 
   useEffect(() => {
@@ -53,13 +62,6 @@ const CreatePlan = (props) => {
     })();
   }, []);
 
-
-
-
-
-
-
-
   //이동하기
   const onDetail = (lat, lon) => { // 반납 가능 우산 개수, 대여 가능 우산 개수 계산
     setmapRegion({ //현재 위치
@@ -78,74 +80,88 @@ const CreatePlan = (props) => {
 
   return (
     <View style={styles.container} >
-      <View style={styles.containerMap} >
-        <MapView
-          style={styles.map}
-          // region={mapRegion}
-          // initialRegion={{mapRegion}}
-          initialRegion={{
-            latitude: mapRegion ? mapRegion.latitude:0,
-            longitude: mapRegion ? mapRegion.longitude:0,
-            latitudeDelta: 0.005,
-            longitudeDelta: 0.005,
-          }}
-          ref={mapRef}
-          //사용자 위치에 맞게 마커가 표시된다.
-          showsUserLocation={true}
-          // userLocationUpdateInterval = 
-          onUserLocationChange={(e) => {
-            setmapRegion({
-              latitude: e.nativeEvent.coordinate.latitude,
-              longitude: e.nativeEvent.coordinate.longitude
-            });
-          }}
-          onRegionChange={mapRegionChangehandle}
-        >
-          <Marker
-            coordinate={{ latitude: mapRegion ? mapRegion.latitude:0, longitude: mapRegion ? mapRegion.longitude:0, }}
-            onPress={() => {
-              onDetail( mapRegion.latitude, mapRegion.longitude)
-            }}
-          >
-            <Callout style={{ width: Dimensions.get('screen').width * 0.6, }}>
+      {
+        check ?
+          <searchPage />
+          
+          :
 
-              <View style={{ alignItems: 'flex-end', marginTop: 10 }}>
-                <Text style={{ fontSize: 13, fontWeight: 'bold', }}>대여 </Text>
-                <Text style={{ fontSize: 13, fontWeight: 'bold', }}>반납 </Text>
-              </View>
-
-              <View>
-
-
-              </View>
-            </Callout>
-          </Marker>     
-        </MapView>
-
-
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity 
-            style={styles.searchBar}
-            onPress={()=>{props.navigation.navigate("Search")}}
-          >
-            <View style={styles.searchInput}>
-              <Text style={{ color: '#7C869C' }}>장소 검색</Text>
-            </View>
-            <View style={styles.searchicon}>
-              <TouchableOpacity
+          <View style={styles.containerMap} >
+            <MapView
+              style={styles.map}
+              // region={mapRegion}
+              // initialRegion={{mapRegion}}
+              initialRegion={{
+                latitude: mapRegion ? mapRegion.latitude : 0,
+                longitude: mapRegion ? mapRegion.longitude : 0,
+                latitudeDelta: 0.005,
+                longitudeDelta: 0.005,
+              }}
+              ref={mapRef}
+              //사용자 위치에 맞게 마커가 표시된다.
+              showsUserLocation={true}
+              // userLocationUpdateInterval = 
+              onUserLocationChange={(e) => {
+                setmapRegion({
+                  latitude: e.nativeEvent.coordinate.latitude,
+                  longitude: e.nativeEvent.coordinate.longitude
+                });
+              }}
+              onRegionChange={mapRegionChangehandle}
+            >
+              <Marker
+                coordinate={{ latitude: mapRegion ? mapRegion.latitude : 0, longitude: mapRegion ? mapRegion.longitude : 0, }}
                 onPress={() => {
-                  console.log('search')
+                  onDetail(mapRegion.latitude, mapRegion.longitude)
                 }}
               >
-                <Image style={{ width: 20, height: 20 }} source={require('../../assets/Search.png')} />
+                <Callout style={{ width: Dimensions.get('screen').width * 0.4, }}>
+
+                  <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 13, fontWeight: 'bold', }}>나의 현재 위치</Text>
+                  </View>
+                </Callout>
+              </Marker>
+            </MapView>
+
+
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity
+                style={styles.searchBar}
+                onPress={() => { setCheck(true) }}
+              >
+                <View style={styles.searchInput}>
+                  <Text style={{ color: '#7C869C' }}>장소 검색</Text>
+                </View>
+                <View style={styles.searchicon}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      console.log('search')
+                    }}
+                  >
+                    <Image style={{ width: 20, height: 20 }} source={require('../../assets/Search.png')} />
+                  </TouchableOpacity>
+                </View>
+
               </TouchableOpacity>
+
+
             </View>
-            
-          </TouchableOpacity>
 
 
-        </View>
-      </View>
+            <BottomSheet
+              ref={sheetRef}
+              snapPoints={[Dimensions.get('window').height * 0.69, Dimensions.get('window').width, 0]}
+              // snapPoints={[450, 300, 0]}
+              borderRadius={10}
+              renderContent={renderContent}
+            />
+
+
+
+          </View>
+
+      }
     </View>
   );
 }
