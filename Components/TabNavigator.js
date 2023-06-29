@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import {HomeStackNavigator, PlanStackNavigator, MyPageStackNavigator} from './StackNavigator'
-
+import TabBarIcon from './TabBarIcon'
 const Tab = createBottomTabNavigator();
 
 
@@ -9,17 +9,30 @@ const TabNavigator = () => {
         <Tab.Navigator
             initialRouteName="Home"
             tabBarOptions={{
-                activeBackgroundColor: 'skyblue',
-                activeTintColor: 'blue',
-                inactiveBackgroundColor: 'yellow',
+                // activeBackgroundColor: 'skyblue',
+                // activeTintColor: 'blue',
+                // inactiveBackgroundColor: 'yellow',
                 style: {
-                    backgroundColor: '#c6cbef',
-                    opacity: 0.5
+                    radiuswidth:10,
                 },
                 labelPosition: 'beside-icon'
             }}
+            
             screenOptions={({ route }) => ({
-                tabBarLabel: route.name,
+                tabBarIcon: ({ focused }) => (
+                    TabBarIcon(focused, route.name)
+                ),
+                tabBarStyle: {
+                    backgroundColor:'#424242',
+                    opacity: 0.5,
+                    paddingTop: 7,
+                    borderTopLeftRadius: 24,
+                    borderTopRightRadius: 24,
+                    borderLeftWidth: 0.2,
+                    borderRightWidth: 0.2,
+                    position: 'absolute',
+                    overflow: 'hidden',
+                },
             })}
 
         >
