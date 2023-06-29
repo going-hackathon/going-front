@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Keyboard } from 'react-native'
+import { View, Text, TextInput, Keyboard, Image } from 'react-native'
 import { styles } from '../../Components/Style'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KeyboardAvoidingView } from 'react-native';
@@ -47,12 +47,16 @@ const Login = (props) => {
             keyboardVerticalOffset={statusBarHeight + 44}
             onPress={()=> Keyboard.dismiss()}
         >
-            <View style={{ width: '80%', height: '50%',}} >
-                <TouchableWithoutFeedback style={{ width: '100%', height: '30%',backgroundColor:'yellow'}}
-                    onPress={()=> Keyboard.dismiss()}
-                    
+            <View style={{ width: '80%', height: '50%', }} >
+                <TouchableWithoutFeedback
+                    style={{ width: '100%', height: '25%', }}
+                    onPress={() => Keyboard.dismiss()}
+
                 >
-                    <Text>로고</Text>
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 12, color: '#AFBAD0' }}>함께 만들어 가는 여행의 즐거움,</Text>
+                        <Image style={{ width: 114, height: 64 }} source={require('../../assets/logo.png')} />
+                    </View>
                 </TouchableWithoutFeedback>
                 <View style={styles.loginView}>
                     <View style={{ width: '80%', height: '30%', marginBottom: 10 }}>

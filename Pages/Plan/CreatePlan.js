@@ -1,5 +1,5 @@
 import React, { useEffect, useState,  useRef,} from 'react';
-import { View, Dimensions,  Text, TextInput  } from 'react-native';
+import { View, Dimensions,  Text, TextInput, Image } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 // npm i react-native-maps
 import * as Location from 'expo-location';
@@ -7,13 +7,11 @@ import {styles} from '../../Components/Style'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-const CreatePlan = ({navigation}) => {
+const CreatePlan = (props) => {
   const [mapRegion, setmapRegion] = useState({ //나의 위치 usestate
     latitude: 36.7992587626175, //위도
     longitude: 127.07589223496811, //경도
   });
-  //firestor 연동
-  const [stations, setStations] = useState();
   //에니메이션으로 이동
   const mapRef = React.useRef(null);
   const [region, setRegion] = React.useState();
@@ -22,10 +20,16 @@ const CreatePlan = ({navigation}) => {
   const mapRegionChangehandle = (region) => {
       setRegion(region)
   };
+  const [data, setData] = useState([]); //데이터 저장
 
-  const [searchText, setSearchText] = useState("")
-
-
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      setData(...data,"check");
+      console.log('data',data)
+      // The screen is focused
+      // Call any action
+    });
+  }, [props])
 
 
   useEffect(() => {
@@ -117,30 +121,30 @@ const CreatePlan = ({navigation}) => {
             </Callout>
           </Marker>     
         </MapView>
+
+
         <View style={{ flexDirection: 'row' }}>
-          <View style={styles.searchBar}>
-            <TextInput
-              style={styles.searchInput}
-              value={searchText}
-              onChangeText={(e)=>{ setSearchText(e) }}
-            />
+          <TouchableOpacity 
+            style={styles.searchBar}
+            onPress={()=>{props.navigation.navigate("Search")}}
+          >
+            <View style={styles.searchInput}>
+              <Text style={{ color: '#7C869C' }}>장소 검색</Text>
+            </View>
             <View style={styles.searchicon}>
               <TouchableOpacity
                 onPress={() => {
                   console.log('search')
                 }}
               >
-                  <Text>검색아이콘 삽입</Text>
+                <Image style={{ width: 20, height: 20 }} source={require('../../assets/Search.png')} />
               </TouchableOpacity>
             </View>
             
-          </View>
+          </TouchableOpacity>
 
 
         </View>
-
-
-
       </View>
     </View>
   );
